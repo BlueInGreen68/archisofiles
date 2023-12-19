@@ -47,7 +47,8 @@
     "ntp": true,
     "offline": false,
     "packages": [
-        "git"
+        "git",
+        "stow"
     ],
     "parallel downloads": 0,
     "profile_config": {
