@@ -8,7 +8,7 @@ cloneFiles () {
 }
 
 cloneDotfiles () {
-  keepassxc-cli show ../Yandex.Disk/keepassxc/Passwords.kdbx github | grep "Notes:" | awk '{ print $2 }' | wl-copy
+  keepassxc-cli show "$dirArchIsoFiles"/Passwords.kdbx github | grep "Notes:" | awk '{ print $2 }' | wl-copy
   echo "Пароль скопирован и находится в буфере обмена"
   git clone https://github.com/blueingreen68/.dotfiles
   dotfiles=~/.dotfiles
@@ -43,6 +43,7 @@ startSetup () {
 			    ;;
 
         Stow)
+          cloneDotfiles
           readArrays
           stowPackageExtract
 
