@@ -14,7 +14,7 @@ setStatusE () {
 setStatusE false
 
 pacmanSetupPkg () {
-	sudo pacman -S --needed - < "$archisofiles"/pkglist.txt
+	sudo pacman -S --needed - < "$dirArchIsoFiles"/pkglist.txt
 }
 
 cloneDotfiles () {
@@ -42,28 +42,24 @@ stowNoFolding () {
 
   if [ $? -eq 1 ]; then
     setStatusE false
-
     checkPkg
   else
     setStatusE false
-
-    stow -d "$dotfiles" --no-folding --adopt -vt ~ "$package"
+    stow -d "$dotfiles" --no-folding -vt ~ "$package"
   fi
 }
 
 stowDir () {
   setStatusE true
 
-  stow -d "$dotfiles" --adopt -nvt ~ "$package" 
+  stow -d "$dotfiles" -nvt ~ "$package" 
 
   if [ $? -eq 1 ]; then
     setStatusE false
-
     checkPkg
   else
     setStatusE false
-    
-    stow -d "$dotfiles" --adopt -vt ~ "$package"
+    stow -d "$dotfiles" -vt ~ "$package"
   fi
 }
 
