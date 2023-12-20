@@ -101,7 +101,7 @@ startSetup () {
 			    ;;
 
         Stow)
-          pacmanSetupPkg
+          yaySetupPkg
           cloneDotfiles
           readArrays
           stowPkgExtract
