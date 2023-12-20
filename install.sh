@@ -2,7 +2,6 @@
 dirArchIsoFiles=~/archisofiles
 dotfiles=~/.dotfiles
 counterAbortedPkg=0
-
 setStatusE () {
   if [ "$1" = true ]; then
     set +e 
@@ -23,8 +22,17 @@ yaySetupPkg () {
 	yay -S --needed - < "$dirArchIsoFiles"/pkglist.txt
 }
 
+openKeepass () {
+  entryKey=$(keepassxc-cli show "$dirArchIsoFiles"/Passwords.kdbx github)
+}
+
 cloneDotfiles () {
-  keepassxc-cli show "$dirArchIsoFiles"/Passwords.kdbx github | grep "Notes:" | awk '{ print $2 }' | wl-copy
+  # Сделать повторный ввод пароля
+  if []
+  notesKey=$(echo "$entryKey" | grep "Notes:")
+
+  echo "$notesKey" | awk '{ print $2 }' | wl-copy
+
   echo "Пароль скопирован и находится в буфере обмена"
   git clone https://github.com/blueingreen68/.dotfiles
 }
@@ -93,16 +101,23 @@ stowUpdateNoFoldingPkg () {
   done
 }
 
+swaySetup () {
+  mkdir -p ~/.config/sway
+  cp /etc/sway/config ~/.config/sway/
+
+  echo "[ "$(tty)" = "/dev/tty1" ] && exec sway" >> .bash_profile
+}
+
 startSetup () {
   select event in Pacman Stow StowUpdate; do
       case $event in
-		    Pacman)
+		    Yay)
           yaySetupPkg
+          swaySetup
           break
 			    ;;
 
         Stow)
-          yaySetupPkg
           cloneDotfiles
           readArrays
           stowPkgExtract
@@ -130,4 +145,4 @@ startSetup () {
 }
 
 # Установка
-startSetup
+cloneDotfiles

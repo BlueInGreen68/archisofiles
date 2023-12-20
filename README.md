@@ -1,3 +1,3 @@
 # ARCHISOFILES
 
-Репозиторий с моими актуальными файлами `pkglist.txt`, `user_configuration.json`. 
+Репозиторий с моими актуальным файлам `pkglist.txt` и установочником `install.sh`. 
