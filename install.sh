@@ -14,6 +14,7 @@ setStatusE () {
 setStatusE false
 
 yaySetupPkg () {
+  cd
   git clone https://aur.archlinux.org/yay ~/yay
   
   cd "~/yay"
