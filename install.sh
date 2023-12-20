@@ -13,8 +13,13 @@ setStatusE () {
 
 setStatusE false
 
-pacmanSetupPkg () {
-	sudo pacman -S --needed - < "$dirArchIsoFiles"/pkglist.txt
+yaySetupPkg () {
+  git clone https://aur.archlinux.org/yay
+  
+  cd ~/yay
+  makepkg -isr
+
+	yay -S --needed - < "$dirArchIsoFiles"/pkglist.txt
 }
 
 cloneDotfiles () {
@@ -91,7 +96,7 @@ startSetup () {
   select event in Pacman Stow StowUpdate; do
       case $event in
 		    Pacman)
-          pacmanSetupPkg
+          yaySetupPkg
           break
 			    ;;
 
