@@ -15,9 +15,9 @@ setStatusE false
 
 yaySetupPkg () {
   cd
-  git clone https://aur.archlinux.org/yay ~/yay
+  git clone https://aur.archlinux.org/yay
   
-  cd "~/yay"
+  cd ~/yay
   makepkg -isr
 
 	yay -S --needed - < "$dirArchIsoFiles"/pkglist.txt
