@@ -2,6 +2,7 @@
 
 dirArchIsoFiles=~/archisofiles
 dotfiles=~/.dotfiles
+abortedPkgFile=~/.dotfiles/abortedPkg.txt
 counterAbortedPkg=0
 
 setStatusE () {
@@ -43,7 +44,7 @@ cloneDotfiles () {
   done
 
   cd
-  git clone https://github.com/blueingreen68/.dotfiles
+  git clone https://blueingreen68@github.com/blueingreen68/.dotfiles
   wl-copy -c
 }
 
@@ -54,8 +55,11 @@ readArrays () {
 checkPkg () {
   counterAbortedPkg=$((counterAbortedPkg+1))
 
-  echo "Название: $package" >> "$dotfiles"/abortedPkg.txt 
+  if [ "$counterAbortedPkg" -eq 1 ]; then
+    date "+%d-%m-%Y: %T" >> "$dotfiles"/abortedPkg.txt
+  fi
 
+  echo "Название: $package" >> "$dotfiles"/abortedPkg.txt 
   stow -d "$dotfiles" -nvt ~ "$package" 2>&1 | awk  '{ print $11 }' >> "$dotfiles"/abortedPkg.txt 
 }
 
@@ -111,16 +115,22 @@ stowUpdateNoFoldingPkg () {
   done
 }
 
-swaySetup () {
-  echo "[ "$(tty)" = "/dev/tty1" ] && exec sway" >> .bash_profile
+abortedPkg () {
+  if [ "$counterAbortedPkg" -gt 0 ]; then
+    echo "Количество нераспакованных пакетов: $counterAbortedPkg"
+    echo "Список находится в ~/.dotfiles/abortedPkg.txt"
+  elif [ "$1" = "delete" && -e "$abortedPkgFile" ]; then
+    rm -i "$abortedPkgFile"
+  fi
 }
 
 startSetup () {
+  abortedPkg "delete"
+
   select event in Pacman Stow StowUpdate; do
       case $event in
 		    Yay)
           yaySetupPkg
-          swaySetup
 
           break
 			    ;;
@@ -134,6 +144,7 @@ startSetup () {
 			    ;;
 
         StowUpdateNoFolding)
+          readArrays
           stowUpdateNoFoldingPkg
 
           break 
@@ -145,12 +156,9 @@ startSetup () {
 			    ;;
       esac
   done
-  
-  if [ "$counterAbortedPkg" -gt 0 ]; then
-    echo "Количество нераспакованных пакетов: $counterAbortedPkg"
-    echo "Список находится в ~/.dotfiles/abortedPkg.txt"
-  fi
+ 
+  abortedPkg
 }
 
 # Установка
-cloneDotfiles
+startSetup
