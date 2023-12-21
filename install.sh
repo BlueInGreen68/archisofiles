@@ -60,7 +60,7 @@ checkPkg () {
   fi
 
   echo "Название: $package" >> "$dotfiles"/abortedPkg.txt 
-  stow -d "$dotfiles" -nvt ~ "$package" 2>&1 | awk  '{ print $11 }' >> "$dotfiles"/abortedPkg.txt 
+  stow -d "$dotfiles" -nvt ~ "$package" 2>&1 | awk  '{ print $11 }' | sed '/^[[:space:]]*$/d' >> "$dotfiles"/abortedPkg.txt 
 }
 
 stowNoFolding () {
