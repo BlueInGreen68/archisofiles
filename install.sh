@@ -58,8 +58,9 @@ checkPkg () {
   if [ "$counterAbortedPkg" -eq 1 ]; then
     date "+%d-%m-%Y: %T" >> "$dotfiles"/abortedPkg.txt
   fi
-
-  echo "Название: $package" >> "$dotfiles"/abortedPkg.txt 
+  
+  echo -e \n
+  echo "Название пакета: $package" >> "$dotfiles"/abortedPkg.txt 
   stow -d "$dotfiles" -nvt ~ "$package" 2>&1 | awk  '{ print $11 }' | sed '/^[[:space:]]*$/d' >> "$dotfiles"/abortedPkg.txt 
 }
 
