@@ -1,7 +1,9 @@
 #!/bin/bash
+
 dirArchIsoFiles=~/archisofiles
 dotfiles=~/.dotfiles
 counterAbortedPkg=0
+
 setStatusE () {
   if [ "$1" = true ]; then
     set +e 
@@ -23,12 +25,24 @@ yaySetupPkg () {
 }
 
 openKeepass () {
+  setStatusE true
+
   entryKey=$(keepassxc-cli show "$dirArchIsoFiles"/Passwords.kdbx github)
 }
 
 cloneDotfiles () {
   # Сделать повторный ввод пароля
-  if []
+  while :
+  do
+    openKeepass
+    
+	  if [ $? -eq 0 ]; then
+      setStatusE false
+      break
+	  fi
+
+  done
+
   notesKey=$(echo "$entryKey" | grep "Notes:")
 
   echo "$notesKey" | awk '{ print $2 }' | wl-copy
@@ -102,9 +116,6 @@ stowUpdateNoFoldingPkg () {
 }
 
 swaySetup () {
-  mkdir -p ~/.config/sway
-  cp /etc/sway/config ~/.config/sway/
-
   echo "[ "$(tty)" = "/dev/tty1" ] && exec sway" >> .bash_profile
 }
 
@@ -114,6 +125,7 @@ startSetup () {
 		    Yay)
           yaySetupPkg
           swaySetup
+
           break
 			    ;;
 
@@ -125,7 +137,7 @@ startSetup () {
 			    break
 			    ;;
 
-        StowUpdate)
+        StowUpdateNoFolding)
           stowUpdateNoFoldingPkg
 
           break 
