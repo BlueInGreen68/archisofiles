@@ -16,6 +16,7 @@ font-manager
 foot
 git
 github-cli
+glow
 gnome-disk-utility-git
 google-chrome
 gparted

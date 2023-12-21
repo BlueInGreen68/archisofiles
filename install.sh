@@ -56,7 +56,7 @@ checkPkg () {
   counterAbortedPkg=$((counterAbortedPkg+1))
 
   if [ "$counterAbortedPkg" -eq 1 ]; then
-    date "+%d-%m-%Y: %T" >> "$dotfiles"/abortedPkg.txt
+    echo "$(date "+%d-%m-%Y: %T)\n" >> "$dotfiles"/abortedPkg.txt
   fi
   
   echo -e \n
