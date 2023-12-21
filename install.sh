@@ -27,7 +27,7 @@ yaySetupPkg () {
 openKeepass () {
   setStatusE true
 
-  entryKey=$(keepassxc-cli show "$dirArchIsoFiles"/Passwords.kdbx github)
+  keepassxc-cli clip "$dirArchIsoFiles"/Passwords.kdbx github 0 -a token-cli
 }
 
 cloneDotfiles () {
@@ -43,11 +43,6 @@ cloneDotfiles () {
 
   done
 
-  notesKey=$(echo "$entryKey" | grep "Notes:")
-
-  echo "$notesKey" | awk '{ print $2 }' | wl-copy
-
-  echo "Пароль скопирован и находится в буфере обмена"
   git clone https://github.com/blueingreen68/.dotfiles
 }
 
