@@ -143,7 +143,7 @@ startSetup () {
 			    break
 			    ;;
 
-        StowUpdateNoFolding)
+        StowUpdate)
           readArrays
           stowUpdateNoFoldingPkg
 
