@@ -31,7 +31,6 @@ openKeepass () {
 }
 
 cloneDotfiles () {
-  # Сделать повторный ввод пароля
   while :
   do
     openKeepass
@@ -43,7 +42,9 @@ cloneDotfiles () {
 
   done
 
+  cd
   git clone https://github.com/blueingreen68/.dotfiles
+  wl-copy -c
 }
 
 readArrays () {
