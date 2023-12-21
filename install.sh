@@ -119,7 +119,7 @@ abortedPkg () {
   if [ "$counterAbortedPkg" -gt 0 ]; then
     echo "Количество нераспакованных пакетов: $counterAbortedPkg"
     echo "Список находится в ~/.dotfiles/abortedPkg.txt"
-  elif [ "$1" = "delete" && -e "$abortedPkgFile" ]; then
+  elif [ "$1" = "delete" ] && [ -e "$abortedPkgFile" ]; then
     rm -i "$abortedPkgFile"
   fi
 }
