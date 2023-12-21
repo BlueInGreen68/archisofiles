@@ -125,10 +125,16 @@ abortedPkg () {
   fi
 }
 
+createStowPkgDir () {
+  mkdir "$dotfiles"/"$namePackage"
+
+  packageDir="$dotfiles"/"$namePackage"
+}
+
 startSetup () {
   abortedPkg "delete"
 
-  select event in Pacman Stow StowUpdate; do
+  select event in Pacman Stow StowUpdate AddPackage; do
       case $event in
 		    Yay)
           yaySetupPkg
@@ -147,10 +153,39 @@ startSetup () {
         StowUpdate)
           readArrays
           stowUpdateNoFoldingPkg
-
+          
           break 
           ;;
 
+        AddPackage)
+          read "Введи название для пакета" -r namePackage
+          echo "Это файл из home или .config директории?"
+          select choise in home config; do 
+            case "$choise" in
+              home)
+                echo "Выбери файл или директорию для копирования"
+                readarray files -t < <(ls -lA | grep -v ^l | awk '{ print $9 }' | sed '/^[[:space:]]*$/d')
+                select file in ${files[@]}; do
+
+                  if [ -d "$file" ]; then
+                    createStowPkgDir
+                    cp -r "~/$file" "$packageDir"
+                  fi
+
+              break
+              ;;
+
+              config)
+              
+              *)
+                echo "Invalid option... Выход"
+			          exit
+			          ;; 
+            esac
+          done
+          read "Выбери папку из директории .config" -r dirConfig
+        
+          cp -r "$dirConfig" "$dotfiles"
         *)
 			    echo "Invalid option... Выход"
 			    exit
