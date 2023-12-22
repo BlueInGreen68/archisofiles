@@ -3,6 +3,7 @@
 dirArchIsoFiles=~/archisofiles
 dotfiles=~/.dotfiles
 abortedPkgFile=~/.dotfiles/abortedPkg.txt
+patternsHomeDir=~/archisofiles/patternsHomeDir.txt
 counterAbortedPkg=0
 
 setStatusE () {
@@ -131,10 +132,64 @@ createStowPkgDir () {
   packageDir="$dotfiles"/"$namePackage"
 }
 
+selectFile () {
+  select file in ${files[@]}; do 
+
+      if [ -d "$file" ]; then
+          createStowPkgDir
+          cp -r "~/$file" "$packageDir"
+      elif [ -f "$file" ]; then
+          createStowPkgDir
+          cp "~/$file" "$packageDir"
+      fi
+
+  done
+}
+
+addFullPackage () {
+  echo "Это файл из home или .config директории?"
+      select choise in home config; do 
+          case "$choise" in
+              home)
+                echo "Выбери файл или директорию для копирования"
+                readarray files -t < <(ls -lA "$HOME" | grep -v -f "$patternsHomeDir" | awk '{ print $9 }' | sed '/^[[:space:]]*$/d')
+                selectFile
+                
+                break 
+                ;;
+
+              config)
+                echo "Выбери файл или директорию для копирования"
+                readarray files -t < <(ls -lA "$XDG_CONFIG_HOME" | awk '{ print $9 }' | sed '/^[[:space:]]*$/d')
+
+                selectFile
+
+                break 
+                ;;
+
+              *)
+                echo "Invalid option... Выход"
+			          exit
+			          ;;
+          esac
+      done
+
+}
+
+addPackage () {
+  read "Введи название для пакета" -r namePackage
+  if [ "$1" = "full" ]; then
+    addFullPackage
+  elif [ "$1" = "noFolding" ]; then
+    addNoFoldingPackage
+  fi
+
+  }
+
 startSetup () {
   abortedPkg "delete"
 
-  select event in Pacman Stow StowUpdate AddPackage; do
+  select event in Pacman Stow StowUpdate AddFullPackage AddNoFoldingPackage; do
       case $event in
 		    Yay)
           yaySetupPkg
@@ -157,30 +212,9 @@ startSetup () {
           break 
           ;;
 
-        AddPackage)
-          read "Введи название для пакета" -r namePackage
-          echo "Это файл из home или .config директории?"
-          select choise in home config; do 
-            case "$choise" in
-              home)
-                echo "Выбери файл или директорию для копирования"
-                readarray files -t < <(ls -lA | grep -v ^l | awk '{ print $9 }' | sed '/^[[:space:]]*$/d')
-                select file in ${files[@]}; do
-
-                  if [ -d "$file" ]; then
-                    createStowPkgDir
-                    cp -r "~/$file" "$packageDir"
-                  fi
-
-              break
-              ;;
-
-              config)
-              
-              *)
-                echo "Invalid option... Выход"
-			          exit
-			          ;; 
+        AddFullPackage)
+          
+               
             esac
           done
           read "Выбери папку из директории .config" -r dirConfig

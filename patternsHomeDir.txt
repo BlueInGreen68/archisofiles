@@ -1,0 +1,15 @@
+^[l-]
+.config
+.dotfiles
+.ssh
+.local
+.cache
+archisofiles
+Downloads
+projects
+video
+torrents
+shotcut
+VirtualBox
+Yandex.Disk
+Music

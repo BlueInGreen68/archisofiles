@@ -43,6 +43,7 @@ mpv
 nano
 nautilus
 navi
+nb
 neofetch
 neovim
 network-manager-applet
