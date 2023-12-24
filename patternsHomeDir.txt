@@ -13,3 +13,4 @@ shotcut
 VirtualBox
 Yandex.Disk
 Music
+images
