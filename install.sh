@@ -18,21 +18,11 @@ setStatusE () {
 
 setStatusE false
 
-yaySetupPkg () {
-
-  cd
-  git clone https://aur.archlinux.org/yay
-  
-  cd ~/yay
-  makepkg -isr
-
-	yay -S --needed - < "$dirArchIsoFiles"/pkglist.txt
-
-}
 
 openKeepass () {
   
   wget https://yadi.sk/d/o4TMFnHFobxTsw -O "$dirArchIsoFiles"/Passwords.kdbx
+
   setStatusE true
 
   keepassxc-cli clip "$dirArchIsoFiles"/Passwords.kdbx github 0 -a token-cli
@@ -66,8 +56,7 @@ checkPkg () {
 
   counterAbortedPkg=$((counterAbortedPkg+1))
 
-  if [ "$counterAbortedPkg" -eq 1 ]; then
-    echo -e "$(date +%d-%m-%Y::%T) \n" >> "$dotfiles"/abortedPkg.txt
+  if [ "$counterAbortedPkg" -eq 1 ]; then echo -e "$(date +%d-%m-%Y::%T) \n" >> "$dotfiles"/abortedPkg.txt
   fi
   
   echo "Название пакета: $package" >> "$dotfiles"/abortedPkg.txt 
@@ -189,7 +178,6 @@ selectFile () {
 
 selectDir () {
 
-
   if [ "$choiseDir" = "home" ]; then
 
       choiseDir="$HOME"
@@ -280,9 +268,58 @@ addPackage () {
 }
 
 createDefaultDirs () {
-  mkdir $HOME/{downloads,images,projects,torrents,video}
+  mkdir $HOME/{downloads,images,projects,torrents,video,shotcut,music}
 
   mkdir $HOME/video/{all-videos,translated-videos}
+}
+
+rewriteAbortedPackage () {
+  select package in ${stowPkgs[@]}; do 
+
+    setStatusE true
+    
+    packageFirstSymbol=${package:0:1}
+
+    if [ "$packageFirstSymbol" = "_" ]; then
+
+      stow -d "$dotfiles" --no-folding -nvt ~ "$package" | awk  '{ print $11 }' | sed '/^[[:space:]]*$/d'
+      
+      if [ $? -eq 1 ]; then
+
+        setStatusE false
+        read -r -p "Перезаписать оригинальный пакет?" answer
+
+      fi
+
+    else
+        
+      stow -d "$dotfiles" -nvt ~ "$package" | awk  '{ print $11 }' | sed '/^[[:space:]]*$/d'
+
+      if [ $? -eq 1 ]; then
+        
+        setStatusE false
+        read -r -p "Перезаписать оригинальный пакет?" answer
+        
+        select answer in Yes No; do
+
+           if [ "$answer" = "Yes" ]; then
+
+            stow -d "$dotfiles" --adopt -vt ~ "$package" 
+
+          elif [ "$answer" = "No" ]; then
+
+            echo "Выход..."
+            exit
+
+          fi
+
+        done
+      fi
+    fi
+    
+   
+    echo "Файл успешно перезаписан!"
+  done
 }
 
 startSetup () {
@@ -291,7 +328,7 @@ startSetup () {
   select event in Yay Stow StowUpdate AddPackage CreateDefaultDirs; do
       case $event in
 		    Yay)
-          yaySetupPkg
+          source "$dirArchIsoFiles"/yaySetupPkg.sh
 
           break
 			    ;;
@@ -318,13 +355,17 @@ startSetup () {
           ;;
 
         CreateDefaultDirs)
-          createdDefaultDirs
+          createDefaultDirs
 
           break 
           ;;
 
         AdoptPackage)
-           
+          readArrays
+          rewriteAbortedPackage 
+
+          break
+          ;;
 
         *)
 			    echo "Invalid option... Выход"
