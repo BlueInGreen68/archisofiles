@@ -18,36 +18,6 @@ setStatusE () {
 
 setStatusE false
 
-
-openKeepass () {
-  
-  wget https://yadi.sk/d/o4TMFnHFobxTsw -O "$dirArchIsoFiles"/Passwords.kdbx
-
-  setStatusE true
-
-  keepassxc-cli clip "$dirArchIsoFiles"/Passwords.kdbx github 0 -a token-cli
-
-}
-
-cloneDotfiles () {
-
-  while :
-  do openKeepass
-    
-	  if [ $? -eq 0 ]; then
-      setStatusE false
-      break
-	  fi
-
-  echo -e "Пароль скопирован!\n"
-  done
-
-  cd
-  git clone https://blueingreen68@github.com/blueingreen68/.dotfiles
-  wl-copy -c
-
-}
-
 readArrays () {
    readarray -t stowPkgs < <(ls -l "$dotfiles" | grep '^d' | awk '{ print $9 }') 
 }
@@ -328,13 +298,13 @@ startSetup () {
   select event in Yay Stow StowUpdate AddPackage CreateDefaultDirs; do
       case $event in
 		    Yay)
-          source "$dirArchIsoFiles"/yaySetupPkg.sh
+          source "$dirArchIsoFiles"/library/yaySetupPkg.sh
 
           break
 			    ;;
 
         Stow)
-          cloneDotfiles
+          source "$dirArchIsoFiles"/library/cloneDotfiles.sh
           readArrays
           stowPkgExtract
 
