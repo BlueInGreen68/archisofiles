@@ -57,6 +57,7 @@ ntfs-3g
 obsidian
 otf-font-awesome
 pavucontrol
+pdfarranger
 peaclock
 pipewire
 pipewire-alsa
