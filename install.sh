@@ -1,9 +1,9 @@
 #!/bin/bash
 
-dirArchIsoFiles=~/archisofiles
-dotfiles=~/.dotfiles
-abortedPkgFile=~/.dotfiles/abortedPkg.txt
-patternsHomeDir=~/archisofiles/patternsHomeDir.txt
+dirArchIsoFiles=$HOME/archisofiles
+dotfiles=$HOME/.dotfiles
+abortedPkgFile=$HOME/.dotfiles/abortedPkg.txt
+patternsHomeDir=$HOME/archisofiles/patternsHomeDir.txt
 counterAbortedPkg=0
 
 setStatusE () {
@@ -16,211 +16,8 @@ setStatusE () {
 
 }
 
-setStatusE false
-
-abortedPkg () {
-
-  if [ "$counterAbortedPkg" -gt 0 ]; then
-    echo "Количество нераспакованных пакетов: $counterAbortedPkg"
-    echo "Список находится в ~/.dotfiles/abortedPkg.txt"
-  elif [ "$1" = "delete" ] && [ -e "$abortedPkgFile" ]; then
-    rm -i "$abortedPkgFile"
-  fi
-
-}
-
-createStowPkgDir () {
-
-  if [ "$typePackageDir" = "full" ]; then
-
-    mkdir "$dotfiles"/"$namePackage"
-    packageDir="$dotfiles"/"$namePackage"
-
-  elif [ "$typePackageDir" = "noFolding" ]; then 
-
-    mkdir "$dotfiles"/"_$namePackage" 
-    packageDir="$dotfiles"/"_$namePackage"
-
-  fi
-}
-
-selectFile () {
-  
-  echo "Выбери оригинальный файл или директорию для копирования:"
-
-  select file in ${files[@]}; do 
-      createStowPkgDir
-      
-      if [ -d "$file" ]; then
-
-        packageFirstSymbol=${packageDir:30:1}
-
-        if [ "$packageFirstSymbol" = "_" ]; then
-          vifm --select "$file" --on-choose "cp -r %f $packageDir" 
-        else
-          cp -r "$file" "$packageDir" 
-        fi
-      
-      elif [ -f "$file" ]; then
-
-        cp -r "$file" "$packageDir"
-
-      fi
-
-      return
-  done
-}
-
-selectDir () {
-
-  if [ "$choiseDir" = "home" ]; then
-
-      choiseDir="$HOME"
-      readarray files -t < <(ls -lA -d $choiseDir/* | grep -v -f "$patternsHomeDir" | awk '{ print $9 }' | sed '/^[[:space:]]*$/d')
-
-      if [ "$files" = "" ]; then
-        echo "Массив files пустой! Выход..."
-        exit
-      fi
-
-  elif [ "$choiseDir" = "config" ]; then 
-
-      choiseDir="$XDG_CONFIG_HOME"
-      readarray files -t < <(ls -lA -d $choiseDir/* | awk '{ print $9 }' | sed '/^[[:space:]]*$/d')
-      
-      if [ "$files" = "" ]; then
-        echo "Массив files пустой! Выход..."
-        exit
-      fi
-  fi
-
-}
-
-selectType () {
-
-  echo "Выбери тип нового пакета:"
-  echo -e " - full - это полная копия оригинального пакета;\n - noFolding - частичная копия"
-  select choiseType in full noFolding; do 
-
-      if [ "$choiseType" = "full" ]; then
-          
-          typePackageDir="full"
-
-      elif [ "$choiseType" = "noFolding" ]; then
-
-          typePackageDir="noFolding"
-
-      fi
-  
-      return
-  done
-
-}
-
-
-addPackage () {
-
-  while :
-  do
-    read -r -p "Введи название нового пакета в ~/.dotfiles: " namePackage
-    
-	  if [ -d "$dotfiles"/"$namePackage" ]; then
-      echo "Пакет уже существует! Выбери другое название."
-
-      continue
-    fi
-  
-  break
-  done
-
-  echo "Оригинальный файл для копии находится в home или .config директории?"
-      select choiseDir in home config; do 
-          case "$choiseDir" in
-              home)
-                selectDir "$choiseDir"              
-                selectType 
-                selectFile
-
-                break 
-                ;;
-
-              config)
-                selectDir "$choiseDir"              
-                selectType
-                selectFile
-
-                break 
-                ;;
-
-              *)
-                echo "Invalid option... Выход"
-			          exit
-			          ;;
-          esac
-      done
-
-  echo "Готово!"
-}
-
-createDefaultDirs () {
-  mkdir $HOME/{downloads,images,projects,torrents,video,shotcut,music}
-
-  mkdir $HOME/video/{all-videos,translated-videos}
-}
-
-rewriteAbortedPackage () {
-  select package in ${stowPkgs[@]}; do 
-
-    setStatusE true
-    
-    packageFirstSymbol=${package:0:1}
-
-    if [ "$packageFirstSymbol" = "_" ]; then
-
-      stow -d "$dotfiles" --no-folding -nvt ~ "$package" | awk  '{ print $11 }' | sed '/^[[:space:]]*$/d'
-      
-      if [ $? -eq 1 ]; then
-
-        setStatusE false
-        read -r -p "Перезаписать оригинальный пакет?" answer
-
-      fi
-
-    else
-        
-      stow -d "$dotfiles" -nvt ~ "$package" | awk  '{ print $11 }' | sed '/^[[:space:]]*$/d'
-
-      if [ $? -eq 1 ]; then
-        
-        setStatusE false
-        read -r -p "Перезаписать оригинальный пакет?" answer
-        
-        select answer in Yes No; do
-
-           if [ "$answer" = "Yes" ]; then
-
-            stow -d "$dotfiles" --adopt -vt ~ "$package" 
-
-          elif [ "$answer" = "No" ]; then
-
-            echo "Выход..."
-            exit
-
-          fi
-
-        done
-      fi
-    fi
-    
-   
-    echo "Файл успешно перезаписан!"
-  done
-}
-
 startSetup () {
-  abortedPkg "delete"
-
-  select event in "Yay setup packages" "Stow" StowUpdate AddPackage CreateDefaultDirs; do
+  select event in "Yay setup packages" "Stow" "Create default home dirs"; do
       case $event in
 		    "Yay setup packages")
           source "$dirArchIsoFiles"/library/yaySetupPkg.sh
@@ -228,36 +25,15 @@ startSetup () {
           break
 			    ;;
 
-        Stow)
-          source "$dirArchIsoFiles"/library/cloneDotfiles.sh
-          stowPkgExtract
-
-			    break
+        "Stow")
+          source "$dirArchIsoFiles"/library/stow/stow.sh
+          echo "Returned. Нажми <Enter> для отображения меню или <ctrl+c> для выхода."
 			    ;;
 
-        StowUpdate)
-          stowUpdateNoFoldingPkg
-          
-          break 
-          ;;
-
-        AddPackage)
-          addPackage
+        "Create default home dirs")
+          source "$dirArchIsoFiles"/library/CreateDefaultDirs.sh
 
           break 
-          ;;
-
-        CreateDefaultDirs)
-          createDefaultDirs
-
-          break 
-          ;;
-
-        AdoptPackage)
-          readArrays
-          rewriteAbortedPackage 
-
-          break
           ;;
 
         *)
@@ -266,9 +42,7 @@ startSetup () {
 			    ;;
       esac
   done
- 
-  abortedPkg
 }
 
-# Установка
+setStatusE false
 startSetup

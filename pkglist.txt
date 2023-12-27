@@ -11,6 +11,7 @@ code
 deepl-electron-bin
 deluge
 efibootmgr
+expect
 firefox
 font-manager
 foot
