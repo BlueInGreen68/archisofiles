@@ -15,10 +15,10 @@ cloneDotfiles () {
     
 	  if [ $? -eq 0 ]; then
       setStatusE false
-      continue
-	  fi
+      echo -e "Пароль скопирован!\n"
+      break
+    fi
 
-  echo -e "Пароль скопирован!\n"
   done
 
   cd
