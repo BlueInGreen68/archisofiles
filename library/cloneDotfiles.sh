@@ -1,7 +1,8 @@
 #!/bin/bash 
 
+wget https://yadi.sk/d/o4TMFnHFobxTsw -O "$dirArchIsoFiles"/Passwords.kdbx
+
 openKeepass () {
-  wget https://yadi.sk/d/o4TMFnHFobxTsw -O "$dirArchIsoFiles"/Passwords.kdbx
 
   setStatusE true
 
