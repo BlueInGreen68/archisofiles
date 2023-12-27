@@ -98,7 +98,9 @@ virtualbox-ext-oracle
 virtualbox-guest-iso
 virtualbox-host-modules-arch
 vot-cli-git
+w3m
 waybar
+wget
 wireplumber
 wl-clipboard
 wofi

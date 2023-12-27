@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-wget https://yadi.sk/d/o4TMFnHFobxTsw -O "$dirArchIsoFiles"/Passwords.kdbx
+wget https://yadi.sk/d/o4TMFnHFobxTsw -O "$dirArchIsoFiles"/Passwords.html
 
 openKeepass () {
 
