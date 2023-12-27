@@ -8,7 +8,13 @@ yaySetupPkg () {
   cd 
   rm -rf $HOME/yay
 
-	yay -S --needed - < "$dirArchIsoFiles"/pkglist.txt
+  if [ "$1" = "pc" ]; then
+    yay -S --needed - < "$dirArchIsoFiles"/pkglist.txt
+  elif [ "$1" = "notebook" ]; then
+    yay -S --needed - < "$dirArchIsoFiles"/pkglistnote.txt
+  fi
 }
 
-yaySetupPkg
+select platform in "pc" "notebook"; do 
+    yaySetupPkg "$platform"
+done
