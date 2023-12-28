@@ -17,10 +17,10 @@ setStatusE () {
 }
 
 startSetup () {
-  select event in "Yay setup packages" "Stow" "Create default home dirs"; do
+  select event in "Setup packages" "Stow" "Create default home dirs"; do
       case $event in
-		    "Yay setup packages")
-          source "$dirArchIsoFiles"/library/yaySetupPkg.sh
+		    "Setup packages")
+          source "$dirArchIsoFiles"/library/setupPkg.sh
 
           break
 			    ;;

@@ -1,0 +1,3 @@
+wldhx-yadisk-direct
+youtube-transcript-api
+yq
