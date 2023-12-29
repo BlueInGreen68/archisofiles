@@ -20,7 +20,10 @@ startSetup () {
   select event in "Setup packages" "Stow" "Create default home dirs"; do
       case $event in
 		    "Setup packages")
-          source "$dirArchIsoFiles"/library/setupPkg.sh
+
+          select installer in "yay" "pipx"; do 
+              source "$dirArchIsoFiles"/library/setupPkg.sh "$installer"
+          done
 
           break
 			    ;;
