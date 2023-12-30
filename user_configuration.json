@@ -52,7 +52,8 @@
         "keepassxc",
         "wget",
         "python-pipx",
-        "wl-clipboard"
+        "wl-clipboard",
+        "networkmanager"
     ],
     "parallel downloads": 0,
     "profile_config": {

@@ -18,14 +18,15 @@ abortedPkg () {
 }
 
 startStow () {
-  abortedPkg "delete"
-  stowReadArrays
-
+    
   if [ -d "$dotfiles" ]; then
       echo "✅ Папка .dotfiles есть"
   else
       source "$dirArchIsoFiles"/library/cloneDotfiles.sh
   fi
+
+  abortedPkg "delete"
+  stowReadArrays
 
   select event in "Stow extract" "Stow update" "Stow add" "Stow adopt" "Back"; do 
     case "$event" in
