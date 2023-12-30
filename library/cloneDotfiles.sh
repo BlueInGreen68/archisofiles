@@ -3,7 +3,7 @@
 getKdbxFile () {
   read -r passwordFile < <(yadisk-direct https://yadi.sk/d/o4TMFnHFobxTsw)
 
-  wget "$passwordFile" -O $HOME/"$dirArchIsoFiles"/Passwords.kbdx
+  wget "$passwordFile" -O "$dirArchIsoFiles"/Passwords.kbdx
 }
 
 openKeepass () {

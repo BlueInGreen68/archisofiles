@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-source $HOME/"$dirArchIsoFiles"/stowPkgExtract.sh
+source "$dirArchIsoFiles"/stowPkgExtract.sh
 
 stowUpdateNoFoldingPkg () {
 
