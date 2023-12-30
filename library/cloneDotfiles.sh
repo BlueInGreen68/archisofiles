@@ -13,6 +13,8 @@ openKeepass () {
 }
 
 cloneDotfiles () {
+  getKdbxFile
+
   while :
   do 
     openKeepass
