@@ -29,5 +29,5 @@ cloneDotfiles () {
   wl-copy -c
 }
 
-source $HOME/"$dirArchIsoFiles"/setupPkgPipx.sh
+source "$dirArchIsoFiles"/library/setupPkgPipx.sh
 cloneDotfiles
