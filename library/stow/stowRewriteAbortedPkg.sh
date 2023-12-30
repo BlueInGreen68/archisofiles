@@ -1,6 +1,7 @@
 #!/bin/bash 
 
 selectAnswer () {
+  echo "Перезаписать оригинальный пакет?: "
   select answer in Yes No; do
     case "$answer" in
       "Yes")
@@ -38,7 +39,6 @@ stowRewriteAbortedPkg () {
       if [ $? -eq 1 ]; then
 
         setStatusE false
-        read -r -p "Перезаписать оригинальный пакет?" answer
         selectAnswer "no-folding"
 
       fi
@@ -50,7 +50,6 @@ stowRewriteAbortedPkg () {
       if [ $? -eq 1 ]; then
         
         setStatusE false
-        read -r -p "Перезаписать оригинальный пакет?" answer
         selectAnswer
 
       fi
