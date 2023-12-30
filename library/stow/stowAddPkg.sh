@@ -66,7 +66,7 @@ selectFile () {
   echo "Выбери оригинальный файл или директорию для копирования:"
 
   select file in ${files[@]}; do 
-      createStowPkgDir
+      stowCreatePkgDir
       
       if [ -d "$file" ]; then
 
