@@ -116,6 +116,9 @@ stowAddPkg () {
 
   done
 
+  cd "$dotfiles"
+  git add "$packageName"
+
   echo "Пакет добавлен!"
 }
 
