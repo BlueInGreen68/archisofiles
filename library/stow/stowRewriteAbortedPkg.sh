@@ -4,7 +4,7 @@ selectAnswer () {
   select answer in Yes No; do
     case "$answer" in
       "Yes")
-          if [ "$1" = "no-folding" ]
+          if [ "$1" = "no-folding" ]; then
             stow -d "$dotfiles" --adopt --no-folding -vt ~ "$package" 
           else
             stow -d "$dotfiles" --adopt -vt ~ "$package" 
