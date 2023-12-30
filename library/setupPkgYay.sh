@@ -26,4 +26,5 @@ select platform in "pc" "notebook"; do
       setupPkgYay "$platform"
     fi
 
+  echo "✅ Готово"
 done

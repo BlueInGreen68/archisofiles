@@ -23,6 +23,8 @@ startSetup () {
 
           select installer in "yay" "pipx"; do 
               source "$dirArchIsoFiles"/library/setupPkg.sh "$installer"
+
+              break
           done
 
           break

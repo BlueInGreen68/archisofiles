@@ -6,6 +6,10 @@ setupPkgPipx () {
   for pkg in ${pipxPkg[@]}; do
     pipx install "$pkg" 
   done
+
+  pipx ensurepath
+
+  echo "✅ Готово"
 }
 
 setupPkgPipx
