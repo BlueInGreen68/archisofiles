@@ -17,6 +17,7 @@ selectAnswer () {
           echo "Выход..."
           exit
 
+          ;;
       *)
           echo "Invalid option. Выбери один из предложенных вариантов!"
     esac
