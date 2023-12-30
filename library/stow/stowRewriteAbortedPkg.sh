@@ -33,7 +33,7 @@ stowRewriteAbortedPkg () {
 
     if [ "$packageFirstSymbol" = "_" ]; then
 
-      stow -d "$dotfiles" --no-folding -nvt ~ "$package" | awk  '{ print $11 }' | sed '/^[[:space:]]*$/d'
+      stow -d "$dotfiles" --no-folding -nvt ~ "$package" 
       
       if [ $? -eq 1 ]; then
 
@@ -45,7 +45,7 @@ stowRewriteAbortedPkg () {
 
     else
         
-      stow -d "$dotfiles" -nvt ~ "$package" | awk  '{ print $11 }' | sed '/^[[:space:]]*$/d'
+      stow -d "$dotfiles" -nvt ~ "$package"
 
       if [ $? -eq 1 ]; then
         
