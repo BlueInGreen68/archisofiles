@@ -11,6 +11,7 @@ selectAnswer () {
             stow -d "$dotfiles" --adopt -vt ~ "$package" 
           fi
         
+          git checkout .
           break
           ;;
 
@@ -56,7 +57,7 @@ stowRewriteAbortedPkg () {
     fi
    
     echo "Файл успешно перезаписан!"
-
+    return 
   done
 }
 
