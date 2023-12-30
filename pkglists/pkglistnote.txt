@@ -8,6 +8,7 @@ blueman
 bluez
 bluez-utils
 code
+deepl-electron-bin
 deluge
 firefox
 font-manager
