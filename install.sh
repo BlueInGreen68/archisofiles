@@ -23,7 +23,6 @@ startSetup () {
 
           select installer in "yay" "pipx"; do 
               source "$dirArchIsoFiles"/library/setupPkg.sh "$installer"
-
               break
           done
 
@@ -36,7 +35,7 @@ startSetup () {
 			    ;;
 
         "Create default home dirs")
-          source "$dirArchIsoFiles"/library/CreateDefaultDirs.sh
+          source "$dirArchIsoFiles"/library/createDefaultDirs.sh
 
           break 
           ;;
