@@ -17,7 +17,7 @@ setStatusE () {
 }
 
 startSetup () {
-  select event in "Setup packages" "Stow" "Create default home dirs"; do
+  select event in "Setup packages" "Dotfiles setup" "Create default home dirs"; do
       case $event in
 		    "Setup packages")
 
@@ -29,9 +29,8 @@ startSetup () {
           break
 			    ;;
 
-        "Stow")
-          source "$dirArchIsoFiles"/library/stow/stow.sh
-          echo "Returned. Нажми <Enter> для отображения меню или <ctrl+c> для выхода."
+        "Dotfiles setup")
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply blueingreen68
 			    ;;
 
         "Create default home dirs")
