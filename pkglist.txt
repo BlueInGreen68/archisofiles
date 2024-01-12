@@ -4,6 +4,7 @@ awesome-terminal-fonts
 base
 base-devel
 bc
+bemenu
 btrfs-progs
 chezmoi
 code
@@ -63,7 +64,8 @@ pdfarranger
 peaclock
 pipewire
 pipewire-alsa
-pipewire-jack pipewire-pulse
+pipewire-jack
+pipewire-pulse
 poppler
 powerkit
 python-pip
@@ -82,12 +84,15 @@ sof-firmware
 stow
 sudo
 sway
+sway-dynamic-names-git
 swaybg
 swaylock
 swayr
+sworkstyle
 tango-icon-theme
 telegram-desktop
 tldr
+tofi
 ttf-font-awesome
 ttf-jetbrains-mono
 ttf-joypixels
@@ -110,6 +115,7 @@ wireplumber
 wl-clipboard
 wofi
 wofi-emoji
+workstyle-git
 xdg-desktop-portal-wlr
 xorg-xwayland
 yandex-disk
