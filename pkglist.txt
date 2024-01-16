@@ -8,13 +8,11 @@ bemenu
 btrfs-progs
 chezmoi
 code
-deepl-electron-bin
 deluge
 efibootmgr
 firefox
 font-manager
-foot
-freeplane
+foot freeplane
 fuzzel
 git
 github-cli
@@ -38,6 +36,7 @@ libreoffice-still-ru
 libsixel
 linux
 linux-firmware
+lsd
 mako
 man-db
 man-pages-ru
@@ -67,9 +66,9 @@ pipewire-alsa
 pipewire-jack
 pipewire-pulse
 poppler
-powerkit
 python-pip
 python-pipx
+python-qtawesome-git
 qbittorrent
 qt5-wayland
 qt6-wayland
@@ -94,6 +93,7 @@ telegram-desktop
 tldr
 tofi
 ttf-font-awesome
+ttf-font-icons
 ttf-jetbrains-mono
 ttf-joypixels
 ttf-nerd-fonts-symbols
