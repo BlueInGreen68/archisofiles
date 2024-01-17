@@ -4,16 +4,14 @@ awesome-terminal-fonts
 base
 base-devel
 bc
-bemenu
 btrfs-progs
 chezmoi
-code
 deluge
 efibootmgr
 firefox
 font-manager
-foot freeplane
-fuzzel
+foot
+freeplane
 git
 github-cli
 glow
@@ -36,7 +34,6 @@ libreoffice-still-ru
 libsixel
 linux
 linux-firmware
-lsd
 mako
 man-db
 man-pages-ru
@@ -68,7 +65,6 @@ pipewire-pulse
 poppler
 python-pip
 python-pipx
-python-qtawesome-git
 qbittorrent
 qt5-wayland
 qt6-wayland
@@ -83,17 +79,12 @@ sof-firmware
 stow
 sudo
 sway
-sway-dynamic-names-git
 swaybg
 swaylock
-swayr
 sworkstyle
 tango-icon-theme
 telegram-desktop
-tldr
-tofi
 ttf-font-awesome
-ttf-font-icons
 ttf-jetbrains-mono
 ttf-joypixels
 ttf-nerd-fonts-symbols
@@ -115,7 +106,6 @@ wireplumber
 wl-clipboard
 wofi
 wofi-emoji
-workstyle-git
 xdg-desktop-portal-wlr
 xorg-xwayland
 yandex-disk
