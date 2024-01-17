@@ -91,6 +91,7 @@ ttf-nerd-fonts-symbols
 udiskie
 unzip
 ventoy-bin
+vi
 vifm
 vimiv
 virtualbox
