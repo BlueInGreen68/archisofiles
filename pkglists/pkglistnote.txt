@@ -1,4 +1,5 @@
 alacarte
+alacritty
 audacity
 awesome-terminal-fonts
 base
@@ -7,15 +8,20 @@ bc
 blueman
 bluez
 bluez-utils
+chezmoi
 code
 deepl-electron-bin
 deluge
+dotnet-runtime
+dotnet-sdk
 firefox
 font-manager
 foot
+freeplane
 git
 github-cli
 glow
+gnome-disk-utility-git
 google-chrome
 gparted
 gptfdisk
@@ -27,7 +33,6 @@ imagemagick
 intel-ucode
 keepassxc
 khal
-komikku
 kompare
 libreoffice-still-ru
 libsixel
@@ -55,6 +60,7 @@ obs-studio
 obsidian
 otf-font-awesome
 pavucontrol
+pdfarranger
 peaclock
 pipewire-alsa
 pipewire-pulse
@@ -68,7 +74,6 @@ qt6-wayland
 qutebrowser
 refind
 ripgrep
-semantik
 shellcheck
 shotcut
 slurp
@@ -79,6 +84,7 @@ sudo
 sway
 swaybg
 swaylock
+sworkstyle
 tango-icon-theme
 telegram-desktop
 ttf-font-awesome
@@ -87,6 +93,7 @@ ttf-joypixels
 ttf-nerd-fonts-symbols
 udiskie
 unzip
+vi
 vifm
 vimiv
 virtualbox
