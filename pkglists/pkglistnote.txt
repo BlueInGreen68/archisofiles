@@ -1,5 +1,4 @@
 alacarte
-alacritty
 audacity
 awesome-terminal-fonts
 base
@@ -9,11 +8,7 @@ blueman
 bluez
 bluez-utils
 chezmoi
-code
-deepl-electron-bin
 deluge
-dotnet-runtime
-dotnet-sdk
 firefox
 font-manager
 foot
@@ -93,6 +88,7 @@ ttf-joypixels
 ttf-nerd-fonts-symbols
 udiskie
 unzip
+ventoy-bin
 vi
 vifm
 vimiv
@@ -102,6 +98,8 @@ virtualbox-guest-iso
 virtualbox-host-modules-arch
 vot-cli-git
 waybar
+wayshot
+webp-pixbuf-loader
 wget
 wl-clipboard
 wofi
