@@ -21,6 +21,7 @@ gparted
 gptfdisk
 grim
 gst-plugin-pipewire
+gum
 gvim
 habito
 htop
@@ -94,7 +95,6 @@ ventoy-bin
 vi
 vifm
 vimiv
-virtualbox
 virtualbox-ext-oracle
 virtualbox-guest-iso
 virtualbox-host-modules-arch
