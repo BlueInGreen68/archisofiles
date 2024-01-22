@@ -9,7 +9,6 @@
     "bootloader": "Systemd-boot",
     "config_version": "2.7.1",
     "debug": false,
-    "disk_config": null,
     "hostname": "blueingreen",
     "kernels": [
         "linux"
@@ -23,18 +22,17 @@
         "custom_mirrors": [],
         "mirror_regions": {
             "Russia": [
+                "https://repository.su/archlinux/$repo/os/$arch",
                 "https://mirror3.sl-chat.ru/archlinux/$repo/os/$arch",
                 "https://mirror2.sl-chat.ru/archlinux/$repo/os/$arch",
                 "https://mirror.yandex.ru/archlinux/$repo/os/$arch",
-                "https://mirror.yal.sl-chat.ru/archlinux/$repo/os/$arch",
                 "https://mirror.truenetwork.ru/archlinux/$repo/os/$arch",
-                "https://mirror.surf/archlinux/$repo/os/$arch",
                 "https://mirror.kpfu.ru/archlinux/$repo/os/$arch",
                 "https://mirror.kamtv.ru/archlinux/$repo/os/$arch",
+                "http://repository.su/archlinux/$repo/os/$arch",
                 "http://mirrors.powernet.com.ru/archlinux/$repo/os/$arch",
                 "http://mirror.yandex.ru/archlinux/$repo/os/$arch",
                 "http://mirror.truenetwork.ru/archlinux/$repo/os/$arch",
-                "http://mirror.surf/archlinux/$repo/os/$arch",
                 "http://mirror.kpfu.ru/archlinux/$repo/os/$arch",
                 "http://mirror.kamtv.ru/archlinux/$repo/os/$arch"
             ]
@@ -47,24 +45,18 @@
     "ntp": true,
     "offline": false,
     "packages": [
-        "git",
-        "stow",
+        "foot",
         "keepassxc",
         "wget",
         "python-pipx",
+        "git",
         "wl-clipboard",
+        "neovim",
+        "chezmoi",
         "networkmanager"
     ],
     "parallel downloads": 0,
-    "profile_config": {
-        "gfx_driver": null,
-        "greeter": null,
-        "profile": {
-            "custom_settings": {},
-            "details": [],
-            "main": "Minimal"
-        }
-    },
+    "profile_config": null,
     "script": "guided",
     "silent": false,
     "skip_ntp": false,
