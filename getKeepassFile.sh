@@ -13,14 +13,20 @@ setStatusE false
 getKdbxFile () {
   read -r passwordFileLink < <(yadisk-direct https://yadi.sk/d/o4TMFnHFobxTsw)
 
-  wget "$passwordFileLink" -O "$dirArchIsoFiles"/Passwords.kdbx
+  wget "$passwordFileLink" -O ~/Passwords.kdbx
 }
 
 openKeepass () {
   setStatusE true
 
-  keepassxc-cli clip "$dirArchIsoFiles"/Passwords.kdbx github 0 -a token-cli
+  keepassxc-cli clip ~/Passwords.kdbx github 0 -a token-cli
 }
+
+# pipx install wldhx.yadisk-direct
+# pipx ensurepath
+# source ~/.bashrc
+
+getKdbxFile
 
 while :
 do 
