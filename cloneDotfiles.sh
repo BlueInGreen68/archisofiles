@@ -22,9 +22,15 @@ openKeepass () {
   keepassxc-cli clip ~/Passwords.kdbx github 0 -a token-cli
 }
 
-# pipx install wldhx.yadisk-direct
-# pipx ensurepath
-# source ~/.bashrc
+cat << EOF
+Before start ./cloneDotfiles.sh:
+
+pipx install wldhx.yadisk-direct
+pipx ensurepath
+source .bashrc
+
+and launch ./cloneDotfiles.sh in new foot window
+EOF
 
 getKdbxFile
 
