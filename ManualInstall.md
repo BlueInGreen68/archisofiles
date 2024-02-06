@@ -8,7 +8,6 @@ device list
 
 # Включение поиска сетей. wlan0 - имя Wi-Fi модуля
 station wlan0 scan
-
 # Список найденных сетей
 station wlan0 get-networks
 

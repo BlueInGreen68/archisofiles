@@ -53,10 +53,19 @@
         "wl-clipboard",
         "neovim",
         "chezmoi",
-        "networkmanager"
+        "networkmanager",
+        "sway"
     ],
     "parallel downloads": 0,
-    "profile_config": null,
+    "profile_config": {
+        "gfx_driver": null,
+        "greeter": null,
+        "profile": {
+            "custom_settings": {},
+            "details": [],
+            "main": "Minimal"
+        }
+    },
     "script": "guided",
     "silent": false,
     "skip_ntp": false,
