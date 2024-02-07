@@ -11,7 +11,7 @@ setStatusE () {
 setStatusE false
 
 getKdbxFile () {
-  read -r passwordFileLink < <(yadisk-direct https://yadi.sk/d/o4TMFnHFobxTsw)
+  read -r passwordFileLink < <("$HOME/.local/bin/yadisk-direct" https://yadi.sk/d/o4TMFnHFobxTsw)
 
   wget "$passwordFileLink" -O ~/Passwords.kdbx
 }
@@ -22,15 +22,12 @@ openKeepass () {
   keepassxc-cli clip ~/Passwords.kdbx github 0 -a token-cli
 }
 
-cat << EOF
-Before start ./cloneDotfiles.sh:
-
 pipx install wldhx.yadisk-direct
-pipx ensurepath
-source .bashrc
 
-and launch ./cloneDotfiles.sh in new foot window
-EOF
+if [ "$?" -eq 1 ]; then
+	echo "Ошибка установки wldhx.yadisk-direct... Выход"
+	exit 1
+fi
 
 getKdbxFile
 
