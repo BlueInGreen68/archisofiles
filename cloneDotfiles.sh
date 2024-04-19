@@ -1,6 +1,6 @@
 #!/bin/bash
 
-setStatusE () {
+function setStatusE () {
   if [ "$1" = true ]; then
     set +e 
   else
@@ -10,13 +10,13 @@ setStatusE () {
 
 setStatusE false
 
-getKdbxFile () {
+function getKdbxFile () {
   read -r passwordFileLink < <("$HOME/.local/bin/yadisk-direct" https://yadi.sk/d/o4TMFnHFobxTsw)
 
   wget "$passwordFileLink" -O ~/Passwords.kdbx
 }
 
-openKeepass () {
+function openKeepass () {
   setStatusE true
 
   keepassxc-cli clip ~/Passwords.kdbx github 0 -a token-cli
@@ -24,9 +24,9 @@ openKeepass () {
 
 pipx install wldhx.yadisk-direct
 
-if [ "$?" -eq 1 ]; then
-	echo "Ошибка установки wldhx.yadisk-direct... Выход"
-	exit 1
+if [[ "$?" -eq 1 ]]; then
+  echo "Ошибка установки wldhx.yadisk-direct... Выход"
+  exit 1
 fi
 
 getKdbxFile
@@ -34,8 +34,8 @@ getKdbxFile
 while :
 do 
     openKeepass
-    
-	  if [ $? -eq 0 ]; then
+
+    if [[ $? -eq 0 ]]; then
       setStatusE false
       echo -e "Пароль скопирован!\n"
       break
@@ -43,5 +43,5 @@ do
 done
 
 cd
-git clone https://blueingreen68@github.com/blueingreen68/dotfiles $HOME/.dotfiles
+git clone https://blueingreen68@github.com/blueingreen68/dotfiles "$HOME"/.dotfiles
 wl-copy -c
