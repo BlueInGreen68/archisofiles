@@ -6,7 +6,7 @@
     "audio_config": {
         "audio": "pipewire"
     },
-    "bootloader": "Systemd-boot",
+    "bootloader": "Limine",
     "config_version": "2.7.1",
     "debug": false,
     "hostname": "blueingreen",
@@ -54,7 +54,8 @@
         "neovim",
         "chezmoi",
         "networkmanager",
-        "sway"
+        "sway",
+        "gum"
     ],
     "parallel downloads": 0,
     "profile_config": {
