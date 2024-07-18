@@ -55,7 +55,8 @@
         "chezmoi",
         "networkmanager",
         "sway",
-        "gum"
+        "gum",
+	"jq"
     ],
     "parallel downloads": 0,
     "profile_config": {

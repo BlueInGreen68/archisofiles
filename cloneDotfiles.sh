@@ -19,7 +19,7 @@ function getKdbxFile () {
 function openKeepass () {
   setStatusE true
 
-  keepassxc-cli clip ~/Passwords.kdbx github 0 -a token-cli
+  keepassxc-cli clip ~/Passwords.kdbx Github 0 -a token-cli
 }
 
 pipx install wldhx.yadisk-direct
