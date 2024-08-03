@@ -63,7 +63,7 @@ mount /dev/nvme0n1p3 /mnt
 
 5. Установка основных пакетов.
 ```bash
-pacstrap /mnt base linux linux-firmware
+pacstrap /mnt base linux linux-firmware nano foot keepassxc wget python-pipx git wl-clipboard neovim chezmoi networkmanager sway gum jq
 ```
 
 6. Генерация файла `fstab`.
@@ -84,9 +84,8 @@ hwclock --systohc
 ```
 
 9. Генерация локали. Для этого нужно отредактировать файл `/etc/local.gen` и убрать комментарии у нужных нам языков. Обычно это `en_US.UTF-8` и `ru_RU.UTF-8`.
-```bash
-pacman -S nano
 
+```bash
 nano /etc/locale.gen
 
 locale-gen
