@@ -1,7 +1,7 @@
 
 # ARCHISOFILES
 
-Репозиторий с моими актуальным файлами `{pkglist,pkglistnote,pkglistpipx}.txt` и установочником `install.sh`. 
+Репозиторий с моими конфигом для `archinstall` и гайдами по установке.
 
 # ARCHIVED DIR
 
