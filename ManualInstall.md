@@ -63,7 +63,7 @@ mount /dev/nvme0n1p3 /mnt
 
 5. Установка основных пакетов.
 ```bash
-pacstrap /mnt base linux linux-firmware nano foot keepassxc wget python-pipx git wl-clipboard neovim chezmoi networkmanager sway gum jq
+pacstrap /mnt base linux linux-firmware nano foot keepassxc wget python-pipx git wl-clipboard neovim chezmoi networkmanager sway gum jq sudo rsync base-devel
 ```
 
 6. Генерация файла `fstab`.
@@ -126,16 +126,12 @@ usermod -aG wheel,audio,video,storage <Имя пользователя>
 
 	Важно! Расскоментируется строка с комментарием <code class="green">Uncomment to allow members of group wheel to execute any command</code>.
 	```bash
-	pacman -S sudo
-
 	EDITOR=nano visudo
 	```
 
 
 16. Установка пакета `NetworkManager`.
 ```bash
-pacman -S networkmanager
-
 systemctl enable NetworkManager
 ```
 
