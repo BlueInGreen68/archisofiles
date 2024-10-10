@@ -1,8 +1,8 @@
 #!/bin/bash
 
-function setStatusE () {
-  if [ "$1" = true ]; then
-    set +e 
+function setStatusE() {
+  if [[ "$1" = true ]]; then
+    set +e
   else
     set -e
   fi
@@ -10,13 +10,13 @@ function setStatusE () {
 
 setStatusE false
 
-function getKdbxFile () {
+function getKdbxFile() {
   read -r passwordFileLink < <("$HOME/.local/bin/yadisk-direct" https://yadi.sk/d/o4TMFnHFobxTsw)
 
   wget "$passwordFileLink" -O ~/Passwords.kdbx
 }
 
-function openKeepass () {
+function openKeepass() {
   setStatusE true
 
   keepassxc-cli clip ~/Passwords.kdbx Github 0 -a token-cli
@@ -31,15 +31,14 @@ fi
 
 getKdbxFile
 
-while :
-do 
-    openKeepass
+while :; do
+  openKeepass
 
-    if [[ $? -eq 0 ]]; then
-      setStatusE false
-      echo -e "Пароль скопирован!\n"
-      break
-    fi
+  if [[ $? -eq 0 ]]; then
+    setStatusE false
+    echo -e "Пароль скопирован!\n"
+    break
+  fi
 done
 
 cd
