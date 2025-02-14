@@ -2,7 +2,6 @@
 
 declare -g httpsToken
 
-export
 function setStatusE() {
   if [[ "$1" = "on" ]]; then
     set -e
@@ -16,13 +15,13 @@ setStatusE "on"
 function getKdbxFile() {
   read -r passwordFileLink < <("$HOME/.local/bin/yadisk-direct" https://yadi.sk/d/o4TMFnHFobxTsw)
 
-  wget "$passwordFileLink" -O ~/Passwords.kdbx
+  wget "$passwordFileLink" -O "$HOME/Passwords.kdbx"
 }
 
 function openKeepass() {
   setStatusE "off"
 
-  httpsToken=$(keepassxc-cli show --attribute https-token "$HOME/Passwords.kdbx" soft-serve 0)
+  httpsToken=$(keepassxc-cli show --attributes https-token "$HOME/Passwords.kdbx" soft-serve)
   return 0
 }
 
@@ -36,7 +35,7 @@ fi
 getKdbxFile
 
 while :; do
-  if [[ $(openKeepass) -eq 0 ]]; then
+  if openKeepass; then
     setStatusE "on"
     break
   fi
@@ -44,3 +43,4 @@ done
 
 cd
 git clone https://"$httpsToken"@ss.bluig.xyz/.init.git "$HOME/init"
+unset httpsToken
