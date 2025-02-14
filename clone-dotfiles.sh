@@ -1,14 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
+declare -g httpsToken
+
+export
 function setStatusE() {
-  if [[ "$1" = true ]]; then
-    set +e
-  else
+  if [[ "$1" = "on" ]]; then
     set -e
+  else
+    set +e
   fi
 }
 
-setStatusE false
+setStatusE "on"
 
 function getKdbxFile() {
   read -r passwordFileLink < <("$HOME/.local/bin/yadisk-direct" https://yadi.sk/d/o4TMFnHFobxTsw)
@@ -17,9 +20,10 @@ function getKdbxFile() {
 }
 
 function openKeepass() {
-  setStatusE true
+  setStatusE "off"
 
-  keepassxc-cli clip ~/Passwords.kdbx Github 0 -a token-cli
+  httpsToken=$(keepassxc-cli show --attribute https-token "$HOME/Passwords.kdbx" soft-serve 0)
+  return 0
 }
 
 pipx install wldhx.yadisk-direct
@@ -32,15 +36,11 @@ fi
 getKdbxFile
 
 while :; do
-  openKeepass
-
-  if [[ $? -eq 0 ]]; then
-    setStatusE false
-    echo -e "Пароль скопирован!\n"
+  if [[ $(openKeepass) -eq 0 ]]; then
+    setStatusE "on"
     break
   fi
 done
 
 cd
-git clone https://blueingreen68@github.com/blueingreen68/dotfiles "$HOME"/.dotfiles
-wl-copy -c
+git clone https://"$httpsToken"@ss.bluig.xyz/.init.git "$HOME/init"
